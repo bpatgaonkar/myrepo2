@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+
+
+    <!--
+        Simple camel route which send every one minute a message on the console.
+    -->
+    <camel:camelContext>
+        <camel:route id="timer-to-console">
+            <camel:from uri="timer://foo?fixedRate=true&amp;period=10s"/>
+            <camel:process ref="msgProcessor"/> 
+            <camel:transform>
+               <camel:simple>Hello Web Application, how are you?</camel:simple>
+            </camel:transform>
+            <camel:to uri="stream:out"/>
+        </camel:route>
+    </camel:camelContext>
+    
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+        <property name="validating" value="true"/>
+        <property name="mappingLocation" value="classpath:mapping.xml"/>
+        <property name="schemaLocation" value="classpath:emmy.xsd"/>
+    </bean>    
+    
+    <bean id="emmyContextLoader" class="com.mycompany.camelwebapplication.EmmyContextLoader">
+        <property name="unmarshaller" ref="castorMarshaller" />
+        <property name="emmyConfFileName" value="D:\proj\chase\emmy\mainline\conf\emmy-conf.xml" />
+    </bean>
+    <!--
+    <bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+    <property name="environment">
+        <props>
+            <prop key="java.naming.factory.initial">weblogic.jndi.WLInitialContextFactory</prop>
+            <prop key="java.naming.provider.url">t3://localhost:81</prop>
+        </props>
+    </property>
+    </bean>
+
+    <bean id="jndiDestinationResolver" class="org.springframework.jms.support.destination.JndiDestinationResolver">
+           <property name="jndiTemplate" ref="jndiTemplate"/>
+    </bean>
+
+    <bean id="jmsConfiguration" class="org.apache.camel.component.jms.JmsConfiguration">
+           <property name="connectionFactory" ref="webLogicJmsConnectionFactory"/>
+           <property name="destinationResolver" ref="jndiDestinationResolver"/>
+    </bean>
+    -->
+    <!-- Gets a Weblogic JMS Connection factory object from JDNI Server by jndiName--> 
+    <!--
+    <bean id="webLogicJmsConnectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate" ref="jndiTemplate" />
+        <property name="jndiName" value="RLS.EMI.QCF" />
+    </bean>
+    -->
+    <!-- Create a new WebLogic Jms Camel Component -->
+    <!--
+    <bean id="wmq" class="org.apache.camel.component.jms.JmsComponent">
+       <property name="configuration" ref="jmsConfiguration" />
+    </bean>
+    -->
+    <bean id="msgProcessor" class="com.mycompany.camelwebapplication.MsgProcessor">
+        <property name="emmyContextLoader" ref="emmyContextLoader"/>
+    </bean>           
+            
+</beans>

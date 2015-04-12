@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+        <class name="com.mycompany.camelwebapplication.context.EmmyContext">
+           <map-to xml="EmmyContext" element-definition="True" ns-uri="www.dorado.com/emmy"/>
+           <field name="_initialContextFactory" 
+                  get-method="getInitialContextFactory"
+                  set-method="setInitialContextFactory" type="string">
+               <bind-xml name="initial-context-factory" node="element"/>
+           </field>
+           <field name="_providerUrl" get-method="getProviderUrl"
+                  set-method="setProviderUrl" type="string">
+               <bind-xml name="provider-url" node="element"/>
+           </field>
+           <field name="_queueConnectionFactory" get-method="getQueueConnectionFactory"
+                  set-method="setQueueConnectionFactory" type="string">
+               <bind-xml name="queue-connection-factory" node="element"/>
+           </field>
+           <field name="_inQueue" get-method="getInQueue"
+                  set-method="setInQueue" type="string">
+               <bind-xml name="in-queue" node="element"/>
+           </field>           
+           <field name="_outQueue" get-method="getOutQueue"
+                  set-method="setOutQueue" type="string">
+               <bind-xml name="out-queue" node="element"/>
+           </field>           
+           <field name="_templatePath" get-method="getTemplatePath"
+                  set-method="setTemplatePath" type="string">
+               <bind-xml name="template-path" node="element"/>
+           </field>    
+           <field name="_requestPath" get-method="getRequestPath"
+                  set-method="setRequestPath" type="string">
+               <bind-xml name="request-path" node="element"/>
+           </field>                   
+           <field name="_responsePath" get-method="getResponsePath"
+                  set-method="setResponsePath" type="string">
+               <bind-xml name="response-path" node="element"/>
+           </field>           
+           <field name="_errorPath" get-method="getErrorPath"
+                  set-method="setErrorPath" type="string">
+               <bind-xml name="error-path" node="element"/>
+           </field>            
+           <field name="_actionElementList" get-method="getActionElement"
+                  set-method="setActionElement"  type="string" collection="array">
+               <bind-xml name="action-element" />
+           </field>  
+           <field name="_messageConfigList" get-method="getMessageConfig"
+                  set-method="setMessageConfig" 
+                  type="com.mycompany.camelwebapplication.context.MessageConfig" 
+                  collection="array">
+               <bind-xml name="MessageConfig" element-definition="True" ns-uri="www.dorado.com/emmy"/>
+           </field>                                  
+        </class>
+        <class name="com.mycompany.camelwebapplication.context.MessageConfig">
+            <field name="_name" get-method="getName"
+                  set-method="setName" type="string">
+               <bind-xml name="name"/>
+           </field>
+            <field name="_enabled" get-method="getEnabled"
+                  set-method="setEnabled"  type="string">
+               <bind-xml name="enabled"/>
+           </field>            
+           <field name="_description" get-method="getDescription"
+                  set-method="setDescription" type="string">
+               <bind-xml name="description"/>
+           </field>             
+           <field name="_templateFiles" get-method="getTemplateFiles"
+                  set-method="setTemplateFiles" type="string" collection="array">
+               <bind-xml name="templateFiles"/>
+           </field>            
+           <field name="_mep" get-method="getMep"
+                  set-method="setMep"  type="string">
+               <bind-xml name="mep"/>
+           </field>            
+           <field name="_action" get-method="getAction"
+                  set-method="setAction"  type="string">
+               <bind-xml name="action"/>
+           </field>             
+           <field name="_processorClass" get-method="getProcessorClass"
+                  set-method="setProcessorClass"  type="string">
+               <bind-xml name="processor-class"/>
+           </field>              
+           <field name="_responseDelay" get-method="getResponseDelay"
+                  set-method="setResponseDelay" type="string">
+               <bind-xml name="response-delay"/>
+           </field> 
+           <field name="_messageStorage" get-method="getMessageStorage"
+                  set-method="setMessageStorage"  type="string">
+               <bind-xml name="message-storage"/>
+           </field>            
+        </class>
+        <class name="com.mycompany.camelwebapplication.context.QueueConfig">
+           <field name="_queueName" get-method="getQueueName"
+                  set-method="setQueueName"  type="string">
+               <bind-xml name="queue-name"/>
+           </field>   
+           <field name="_queueConnectionFactory" get-method="getQueueConnectionFactory"
+                  set-method="setQueueConnectionFactory"  type="string">
+               <bind-xml name="queue-connection-factory"/>
+           </field>   
+           <field name="_inQueue"  get-method="getInQueue"
+                  set-method="setInQueue"  type="string">
+               <bind-xml name="in-queue"/>
+           </field>       
+           <field name="_outQueue" get-method="getOutQueue"
+                  set-method="setOutQueue"  type="string">
+               <bind-xml name="out-queue"/>
+           </field>                                  
+        </class>        
+</mapping>                   

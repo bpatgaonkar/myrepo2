@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:exEMMY="www.dorado.com/emmy" targetNamespace="www.dorado.com/emmy" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="EmmyContext">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>Root Element for Message Handlers</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<!-- JMS Configuration -->
+				<xs:element name="initial-context-factory" type="xs:string"/>
+				<xs:element name="provider-url" type="xs:string"/>
+				<xs:element name="queue-connection-factory" type="xs:string"/>
+				<xs:element name="in-queue" type="xs:string"/>
+				<xs:element name="out-queue" type="xs:string"/>
+				<xs:element ref="exEMMY:QueueConfig" minOccurs="0" maxOccurs="unbounded"/>
+				<!-- Local Directories-->
+				<xs:element name="template-path" type="xs:string"/>
+				<xs:element name="request-path" type="xs:string"/>
+				<xs:element name="response-path" type="xs:string"/>
+				<xs:element name="error-path" type="xs:string"/>
+				<!-- Message Information -->
+				<xs:element name="action-element" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="exEMMY:MessageConfig" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="QueueConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="queue-name" type="xs:string"/>
+				<xs:element name="queue-connection-factory" type="xs:string"/>
+				<xs:element name="in-queue" type="xs:string"/>
+				<xs:element name="out-queue" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MessageConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string"/>
+				<!-- enabled flag is for response only, requests get consumed in any case -->
+				<xs:element name="enabled" type="xs:string"/>
+				<xs:element name="description" type="xs:string"/>
+				<xs:element name="templateFiles" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+				<!-- MEP valid values "request", "response", "request-response" -->
+				<xs:element name="mep" type="xs:string"/>
+				<!-- message identifier value for action-element -->
+				<xs:element name="action" type="xs:string" minOccurs="0"/>
+				<!-- fully qualified message processor class -->
+				<xs:element name="processor-class" type="xs:string"/>
+				<!-- Delay for response once request is received -->
+				<xs:element name="response-delay" type="xs:string" minOccurs="0"/>
+				<!-- message storage flag, to decide for storing the message -->
+				<xs:element name="message-storage" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
